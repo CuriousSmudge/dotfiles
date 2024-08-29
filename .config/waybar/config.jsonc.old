@@ -6,11 +6,13 @@
     // "width": 2560, // Waybar width
     // "spacing": 4, // Gaps between modules (4px)
     
+    "reload_style_on_change": "true", // Why is this not the default?!
+    // oh its because it doesnt work :(
 
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "hyprland/workspaces", "sway/mode", "sway/window", "hyprland/window"],
     "modules-center": [],
-    "modules-right": ["tray", "sway/scratchpad", /*"idle_inhibitor",*/ "disk", "cpu", "memory", "network", "pulseaudio", "battery", "custom/weather", "clock"],
+    "modules-right": ["tray", "sway/scratchpad", /*"idle_inhibitor",*/ "disk", "temperature", "temperature2", "cpu", "memory", "network", "pulseaudio", "battery", "custom/weather", "clock"],
     // Modules configuration
      "sway/workspaces": {
          "disable-scroll": true,
@@ -44,8 +46,7 @@
     
     "sway/language": {
             "format": "{short}",
-            "tooltip-format": "{long}",
-            "on-click": "swaymsg input type:keyboard xkb_switch_variant next"
+            "tooltip-format": "{long}"
     },
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
@@ -56,14 +57,6 @@
         "format-icons": ["", ""],
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
-    },
-    "wlr/taskbar": {
-	"format": "{icon}",
-	"icon-size": 14,
-	"icon-theme": "Numix-Circle",
-	"tooltip-format": "{title}",
-	"on-click": "activate",
-	"on-click-middle": "close"
     },
     "mpd": {
     	// "server": "192.168.1.159",

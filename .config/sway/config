@@ -19,19 +19,23 @@ set $right l
 
 # Display
 set $out-prim DP-1
-set $out-sec DP-2
+set $out-sec HDMI-A-2
 
-output eDP-1 scale 1.5
+output eDP-1 position 0 0 scale 1.1
 
-output $out-prim resolution 1920x1080 position 0 0 scale 1
+
+output $out-sec resolution 1920x1080 position 0 -1080 scale 1
 
 # 2880 is 3840*1.75
-output $out-sec resolution 3840x2160 position 1920 -400 transform 270 scale 2
+# output $out-sec resolution 3840x2160 position 1920 -400 transform 270 scale 2
+
 
 output HEADLESS-1 resolution 2048x1536 position 0 1080 scale 2
 # create_output a, resolution 1920x1080 position 0 1080 scale 1
 workspace 10 output HEADLESS-1
 
+output eDP-1 bg /home/ashley/Pictures/Wallpapers/joshua-alejo-ldXTEpvy1os-unsplash.jpg fill
+output HDMI-A-2 bg /home/ashley/Pictures/Wallpapers/john-michael-wilyat-rq8Db1FhuX0-unsplash.jpg fill
 
 set $resize-step 30px
 
@@ -43,13 +47,16 @@ set $term kitty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu rofi 
+# set $menu sh $HOME/.config/rofi/bin/ 
+
+set $menu rofi
+
 
 set $bar waybar
 
-set $file thunar
+set $file dolphin
 
-set $acCol #f5bde6
+set $acCol #c6a0f6
 set $textC #181926
 
 set $borderCol $acCol
@@ -66,7 +73,7 @@ smart_gaps false
 # swayfx things
 blur enable
 blur_passes 2
-blur_radius 4
+blur_radius 3
 blur_noise 0.1
 
 shadows disable
@@ -94,7 +101,6 @@ exec gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-Dark'
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg $HOME/.pic/space1.jpg fill
 #
 # Example configuration:
 #
@@ -137,7 +143,7 @@ input * {
     # NOTE TO FUTURE ME
     # Only enable this if you KNOW the layout fully. 
     # Also work out how to make vim work with new binds. (hjkl)
-    #xkb_variant "colemak"
+   # xkb_variant "colemak"
 }
 
 # Notification Daemon
@@ -178,7 +184,7 @@ bindsym XF86Fn+Mod1+l exec cat $HOME/email.txt | wl-copy
 # App launching
 
 ## Start your launcher
-bindsym $mod+space exec $menu -show drun
+bindsym Mod1+space exec $menu -show drun
 
 # search windows
 bindsym $mod+tab exec $menu -show window
@@ -190,7 +196,7 @@ bindsym $mod+Mod1+space exec $calc
 bindsym $mod+Return exec $term
 
 # browser (firefox)
-bindsym $mod+Shift+b exec MOZ_ENABLE_WAYLAND=1 firefox 
+bindsym $mod+Shift+b exec MOZ_ENABLE_WAYLAND=1 floorp
 
 # file explorer
 bindsym $mod+Shift+e exec $file
@@ -353,15 +359,19 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 set $brightStep 5%
-set $brightExpo 5
+set $brightExpo 1
 set $brightNotif dunstify "Brightness: " -h int:value:"`brightnessctl | egrep -o "[0-9]+%" | sed "s/%//g"`" 
 
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +$brightStep -e$brightExpo && $brightNotif
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set $brightStep- -e$brightExpo && $brightNotif
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +$brightStep && true
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set $brightStep- && true
 
+bindsym XF86Tools exec $HOME/.scripts/1but-kb-light.py
 
 # cat!
 bindsym XF86Search exec kate $HOME/.scripts/cat.txt
+
+# cat 2
+bindsym Insert exec cat $HOME/.share/cato | xargs -0 wtype
 
 #
 # Status Bar:
