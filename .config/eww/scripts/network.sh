@@ -61,7 +61,7 @@ while read -r line; do
 
     icon=$(get_wifi_icon "${STATE}")
 
-    jq -c -n \
+    jq -M -c -n \
         --arg state "${STATE}"\
         --arg icon "${icon}"\
         --arg ip "${IP}"\

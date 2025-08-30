@@ -21,7 +21,8 @@ set $right l
 set $out-prim DP-1
 set $out-sec DP-2
 
-output eDP-1 scale 1.4
+#output eDP-1 scale 1.2 resolution 2560x1600@165Hz
+output eDP-1 scale 1 resolution 1920x1200@60Hz
 
 output $out-prim resolution 1920x1080 position 0 0 scale 1 adaptive_sync off
 
@@ -141,6 +142,11 @@ exec swayidle -w \
 
 primary_selection disabled
 
+# Ashkey frameqwork!!
+input "2362:628:PIXA3854:00_093A:0274_Touchpad" {
+    scroll_factor 0.1
+}
+
 # Dell
 input "1739:30382:DLL0704:01_06CB:76AE_Touchpad" {
     tap enabled
@@ -179,7 +185,7 @@ exec swaync
 exec /usr/lib/polkit-kde-authentication-agent-1
 
 # Exec binary space partitioning script
-# exec ~/.config/sway/bsp.sh
+exec ~/.config/sway/bsp.sh
 
 # Toggle control center
 bindsym $mod+Shift+Mod1+n exec swaync-client -t -sw
@@ -209,7 +215,7 @@ bindsym Mod1+backspace exec wtype -P delete -p delete
 # App launching
 
 ## Start your launcher
-bindsym $mod+space exec cd ~/code/Lumin && make run
+bindsym $mod+space exec cd ~/Code/Lumin && source .venv/bin/activate && make run
 
 # search windows
 #bindsym $mod+tab exec $menu -show window
@@ -224,7 +230,10 @@ bindsym $mod+Return exec $term
 # bindsym $mod+n exec ~/.cargo/bin/neovide
 
 # browser (firefox)
-bindsym $mod+Shift+b exec MOZ_ENABLE_WAYLAND=1 firefox 
+bindsym $mod+Shift+z exec MOZ_ENABLE_WAYLAND=1 zen-browser 
+
+# Super tux the cart!
+bindsym $mod+Shift+Ctrl+x exec supertuxkart
 
 # Neovide
 bindsym $mod+Shift+n exec neovide
@@ -407,8 +416,8 @@ bindsym $mod+Shift+D exec cd ~/code/screenshot_painter/ && make run
 # set $displayVolume dunstify "Progress: " -h int:value:"`pactl get-sink-volume @DEFAULT_SINK@ | egrep -m 1 -o "[0-9]*%" | head -n 1`"
 set $displayVolume echo 1
 
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && $displayVolume
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && $displayVolume
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && $displayVolume
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && $displayVolume
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86AudioPlay exec playerctl play-pause

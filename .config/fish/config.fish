@@ -33,7 +33,7 @@ if status is-interactive
     # export PATH=$PATH:/home/d/.cargo/bin
     #
     # fish_add_path /home/d/.cargo/bin
-    fish_add_path /home/d/bin/
+    fish_add_path $HOME/bin/
     fish_add_path /home/d/.local/share/gem/ruby/3.2.0/bin
 
     set --universal pure_show_subsecond_command_duration true

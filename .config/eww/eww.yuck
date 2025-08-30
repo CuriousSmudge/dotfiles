@@ -133,7 +133,7 @@ M"
             (box :valign "end"
                 (music_info)
             )
-            (todo_overview)
+            ;(todo_overview)
         )
         (box
         :orientation "vertical"
