@@ -11,7 +11,7 @@ vim.o.signcolumn = "yes:1"
 -- Packages
 -- -- Catppuccin
 vim.pack.add({ "https://github.com/catppuccin/nvim" }, {
-	flavour = "mocha" })
+	flavour = "latte" })
 vim.cmd.colorscheme "catppuccin"
 
 -- -- Language Server Protocols

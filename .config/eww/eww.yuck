@@ -1,12 +1,29 @@
 (defwindow example
            :monitor 0
            :geometry (geometry :x "0%"
-                               :y "20px"
+                               :y "4px"
                                :width "90%"
-                               :height "30px"
+                               :height "25px"
                                :anchor "top center")
            :stacking "fg"
            :reserve (struts :distance "40px" :side "top")
            :windowtype "dock"
            :wm-ignore false
-  "example content")
+	   :exclusive true
+  (box (time) (workspaces)))
+
+(defwidget time []
+  	(box :halign "end"
+	"${formattime(EWW_TIME, "%A the %dth of %B")}")
+	)
+
+(deflisten WORKSPACES
+		`swaymsg -r -t SUBSCRIBE -m '["workspace"]'`
+	)
+
+(defwidget workspaces []
+	(box :halign "start"
+		(for wsp in {WORKSPACES}
+		"${wsp.name}")
+		)
+	)
